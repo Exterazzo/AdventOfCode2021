@@ -10,15 +10,19 @@ namespace _01
             var input = System.IO.File.ReadAllLines(path);
 
             var largerThanPrevious = 0;
-            var previous = int.MaxValue;
-            foreach(var s in input)
+            var previous = new Measurement(9999, 9999, 9999);
+            for(var i = 0; i < input.Length - 2; i++)
             {
-                var i = Convert.ToInt32(s);
-                if (i > previous)
+                var a = Convert.ToInt32(input[i]);
+                var b = Convert.ToInt32(input[i+1]);
+                var c = Convert.ToInt32(input[i+2]);
+
+                var m = new Measurement(a, b, c);
+                if (m.Sum > previous.Sum)
                     largerThanPrevious++;
 
 
-                previous = i;
+                previous = m;
             }
 
             Console.WriteLine(largerThanPrevious);
