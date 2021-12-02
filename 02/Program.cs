@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.InteropServices;
 
 namespace _02
 {
@@ -10,14 +8,23 @@ namespace _02
         {
             var input = System.IO.File.ReadAllLines("input.txt");
             var course = new Course();
+            var depth = 0;
+            var aim = 0;
             foreach (var line in input)
             {
-                course.Add(new Command(line));
+                var command = new Command(line);
+                course.Add(command);
+                if (!command.IsHorizontal)
+                {
+                    aim = course.GetAim();
+                }
+                else
+                {
+                    depth += (aim * command.AbsoluteUnits);
+                }
             }
 
             var horizontalPosition = course.GetHorizontalPosition();
-            var depth = course.GetDepth();
-
             var multiplied = horizontalPosition * depth;
             Console.WriteLine($"{horizontalPosition} x {depth} = {multiplied}");
             Console.ReadLine();

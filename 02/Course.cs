@@ -7,12 +7,12 @@ namespace _02
     {
         public int GetHorizontalPosition()
         {
-            return this.Where(c => c.Direction == "forward").Select(c => c.Units).Sum();
+            return this.Where(c => c.IsHorizontal).Select(c => c.AbsoluteUnits).Sum();
         }
 
-        public int GetDepth()
+        public int GetAim()
         {
-            return this.Where(c => c.Direction != "forward").Select(c => c.AbsoluteUnits).Sum();
+            return this.Where(c => !c.IsHorizontal).Select(c => c.AbsoluteUnits).Sum();
         }
     }
 }

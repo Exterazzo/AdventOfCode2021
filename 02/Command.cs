@@ -4,20 +4,22 @@ namespace _02
 {
     class Command
     {
-        public int Units;
+        private int _units;
         public string Direction;
+
+        public bool IsHorizontal => Direction == "forward";
 
         public int AbsoluteUnits
         {
             get
             {
                 if (Direction == "down")
-                    return Units;
+                    return _units;
 
                 if (Direction == "up")
-                    return Units * -1;
+                    return _units * -1;
 
-                return 0;
+                return _units;
             }
         }
 
@@ -26,7 +28,7 @@ namespace _02
         {
             var arguments = input.Split(" ");
             Direction = arguments[0];
-            Units = Convert.ToInt32(arguments[1]);
+            _units = Convert.ToInt32(arguments[1]);
         }
     }
 }
