@@ -6,7 +6,7 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var exercise = new Day02.Exercise();
+            var exercise = new Day03.Exercise();
             Console.WriteLine(exercise.GetFirstAnswer());
             Console.WriteLine(exercise.GetSecondAnswer());
             Console.ReadLine();
