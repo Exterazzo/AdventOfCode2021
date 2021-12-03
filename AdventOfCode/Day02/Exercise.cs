@@ -3,7 +3,7 @@ using AdventOfCode.Interfaces;
 
 namespace AdventOfCode.Day02
 {
-    class Exercise : IExercise<int, int>
+    public class Exercise : IExercise<int, int>
     {
         private string[] _input;
 
