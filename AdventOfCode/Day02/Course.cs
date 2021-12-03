@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace _02
+namespace AdventOfCode.Day02
 {
     class Course : List<Command>
     {

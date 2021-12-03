@@ -1,4 +1,4 @@
-﻿namespace _01
+﻿namespace AdventOfCode.Day01
 {
     struct Measurement
     {
