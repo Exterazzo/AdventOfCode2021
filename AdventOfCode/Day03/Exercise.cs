@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using AdventOfCode.Interfaces;
 
 namespace AdventOfCode.Day03
 {
-    class Exercise : IExercise<int, int>
+    public class Exercise : IExercise<int, int>
     {
         private string[] _input;
 
@@ -53,9 +54,75 @@ namespace AdventOfCode.Day03
 
         public int GetSecondAnswer()
         {
-            return 0;
+            var oxygenGeneratorRating = GetOxygenGeneratorRating();
+            var co2ScrubberRating = GetCO2ScrubberRating();
+
+            return oxygenGeneratorRating * co2ScrubberRating;
         }
 
+        private int GetCO2ScrubberRating()
+        {
+            var bits = _input[0].Length;
+
+            var items = _input;
+            for (var i = 0; i < bits; i++)
+            {
+                items = GetMatchingItems(items, i, '0');
+                if (items.Length == 1)
+                    break;
+            }
+
+
+            return Convert.ToInt32(items.First(), 2);
+        }
+
+        private int GetOxygenGeneratorRating()
+        {
+            var bits = _input[0].Length;
+
+            var items = _input;
+            for (var i = 0; i < bits; i++)
+            {
+                items = GetMatchingItems(items, i, '1');
+            }
+            
+
+            return Convert.ToInt32(items.First(), 2);
+        }
+
+        private string[] GetMatchingItems(string[] input, int index, char determinator)
+        {
+            var bitCount = 0;
+            var lineCount = input.Length;
+            foreach (var binary in input)
+            {
+                if (binary[index] == '1')
+                    bitCount++;
+            }
+
+
+            var half = (decimal) lineCount / 2;
+
+            var bitCriteria = '0';
+            // Equal number of bits
+            if (bitCount == half)
+            {
+                bitCriteria = determinator;
+            }
+            else if (bitCount > half)
+            {
+                bitCriteria = determinator == '1' ? '1' : '0';
+            }
+            else
+            {
+                bitCriteria = determinator == '1' ? '0' : '1';
+            }
+
+            // Find all items matching bit criteria for the given index position
+            var matchingItems = input.Where(i => i[index] == bitCriteria).ToList();
+
+            return matchingItems.ToArray();
+        }
         
     }
 }
