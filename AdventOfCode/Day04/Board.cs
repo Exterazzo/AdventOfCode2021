@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Day04
 {
     class Board
     {
+        public Guid Identifier;
         private List<Line> _rows = new List<Line>();
         private List<Line> _columns = new List<Line>();
         
         public Board(List<string> lines)
         {
+            Identifier = Guid.NewGuid();
             foreach (var line in lines)
             {
                 _rows.Add(new Line(line));
@@ -28,6 +31,9 @@ namespace AdventOfCode.Day04
 
         public void DrawNumber(int number)
         {
+            if (HasBingo())
+                return;
+            
             foreach (var row in _rows)
             {
                 row.DrawNumber(number);

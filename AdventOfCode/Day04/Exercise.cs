@@ -19,9 +19,8 @@ namespace AdventOfCode.Day04
             _input = input;
         }
 
-        public int GetFirstAnswer()
+        private List<Board> LoadBoards()
         {
-            var numbers = new NumbersToDraw(_input[0]);
             var boards = new List<Board>();
             var boardLines = new List<string>();
             for (var i = 2; i < _input.Length; i++)
@@ -37,6 +36,16 @@ namespace AdventOfCode.Day04
                 }
             }
             boards.Add(new Board(boardLines));
+
+            return boards;
+        }
+
+        public int GetFirstAnswer()
+        {
+            var numbers = new NumbersToDraw(_input[0]);
+            var boards = LoadBoards();
+
+            var bingoBoards = new List<Board>();
 
             foreach (var number in numbers)
             {
@@ -56,7 +65,28 @@ namespace AdventOfCode.Day04
 
         public int GetSecondAnswer()
         {
-            return 0;
+            var numbers = new NumbersToDraw(_input[0]);
+            var boards = LoadBoards();
+
+            var bingoBoards = new Dictionary<Board, int>();
+
+            foreach (var number in numbers)
+            {
+                foreach (var board in boards)
+                {
+                    board.DrawNumber(number);
+                    if (board.HasBingo())
+                    {
+                        if (bingoBoards.All(b => b.Key.Identifier != board.Identifier))
+                            bingoBoards.Add(board, number);
+                    }
+                }
+            }
+
+            var lastBoardToWin = bingoBoards.Last();
+            var unmarkedSum = lastBoardToWin.Key.GetUnmarkedSum();
+            var lastDrawnNumber = lastBoardToWin.Value;
+            return unmarkedSum * lastDrawnNumber;
         }        
     }
 }

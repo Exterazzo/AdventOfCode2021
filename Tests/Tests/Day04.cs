@@ -32,7 +32,7 @@ namespace Tests.Tests
             var secondAnswer = exercise.GetSecondAnswer();
 
             // Assert
-            secondAnswer.Should().Be(0);
+            secondAnswer.Should().Be(1924);
         }
 
         private string[] GetSampleInput()
