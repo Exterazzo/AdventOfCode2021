@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using AdventOfCode.Interfaces;
 
@@ -19,9 +20,24 @@ namespace AdventOfCode.Day05
             _input = input;
         }
 
+        private Vents GetVectors()
+        {
+            var vectors = new Vents();
+            foreach (var line in _input)
+            {
+                vectors.Add(new Vector(line));
+            }
+
+            return vectors;
+        }
+
         public int GetFirstAnswer()
         {
-            return 0;
+            var vectors = GetVectors();
+
+            var floor = new OceanFloor(vectors);
+            //floor.Draw();
+            return floor.GetDangerousPointCount();
         }
 
         public int GetSecondAnswer()
