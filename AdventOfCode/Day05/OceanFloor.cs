@@ -9,16 +9,16 @@ namespace AdventOfCode.Day05
         private Vents _vents;
         private Dictionary<Point, int> _dangerousAreas;
 
-        public OceanFloor(Vents vents)
+        public OceanFloor(Vents vents, Direction[] directionsToCheck)
         {
             _vents = vents;
-            _dangerousAreas = GetDangerousAreas();
+            _dangerousAreas = GetDangerousAreas(directionsToCheck);
         }
 
-        private Dictionary<Point, int> GetDangerousAreas()
+        private Dictionary<Point, int> GetDangerousAreas(Direction[] directionsToCheck)
         {
             var areas = new Dictionary<Point, int>();
-            foreach (var v in _vents.GetHorizonalAndVerticalVectors())
+            foreach (var v in _vents.GetByDirections(directionsToCheck))
             {
                 foreach (var p in v.GetOverlappingPoints())
                 {

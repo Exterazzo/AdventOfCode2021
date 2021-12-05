@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AdventOfCode.Day05
 {
@@ -22,8 +23,10 @@ namespace AdventOfCode.Day05
                     return Direction.Vertical;
                 else if (Start.Y == End.Y)
                     return Direction.Horizontal;
+                else if (Math.Abs(Start.X - End.X) == Math.Abs(Start.Y - End.Y))
+                    return Direction.Diagonal;
 
-                return Direction.Diagonal;
+                return Direction.Other;
             }
         }
 
@@ -35,6 +38,8 @@ namespace AdventOfCode.Day05
                 points.AddRange(GetHorizontalPoints());
             else if (Direction == Direction.Vertical)
                 points.AddRange(GetVerticalPoints());
+            else if (Direction == Direction.Diagonal)
+                points.AddRange(GetDiagonalPoints());
             points.Add(End);
             return points;
         }
@@ -60,6 +65,30 @@ namespace AdventOfCode.Day05
             {
                 points.Add(new Point() { X = Start.X, Y = y });
             }
+            return points;
+        }
+
+        private List<Point> GetDiagonalPoints()
+        {
+            var x = Start.X;
+            var y = Start.Y;
+            var xFactor = Start.X > End.X ? -1 : 1;
+            var yFactor = Start.Y > End.Y ? -1 : 1;
+
+            var points = new List<Point>();
+
+            while(true)
+            {
+                x += xFactor;
+                y += yFactor;
+                var p = new Point() {X = x, Y = y};
+                
+                if (p.X == End.X && p.Y == End.Y)
+                    break;
+
+                points.Add(p);
+            }
+            
             return points;
         }
     }

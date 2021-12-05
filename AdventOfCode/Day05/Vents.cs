@@ -12,9 +12,9 @@ namespace AdventOfCode.Day05
             return new Point() {X = x, Y = y};
         }
 
-        public List<Vector> GetHorizonalAndVerticalVectors()
+        public List<Vector> GetByDirections(Direction[] directionsToCheck)
         {
-            return this.Where(v => v.Direction == Direction.Horizontal || v.Direction == Direction.Vertical).ToList();
+            return this.Where(v => directionsToCheck.Contains(v.Direction)).ToList();
         }
     }
 }

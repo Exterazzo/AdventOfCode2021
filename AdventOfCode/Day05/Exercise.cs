@@ -35,14 +35,18 @@ namespace AdventOfCode.Day05
         {
             var vectors = GetVectors();
 
-            var floor = new OceanFloor(vectors);
+            var floor = new OceanFloor(vectors, new Direction[] {Direction.Horizontal, Direction.Vertical});
             //floor.Draw();
             return floor.GetDangerousPointCount();
         }
 
         public int GetSecondAnswer()
         {
-            return 0;
+            var vectors = GetVectors();
+
+            var floor = new OceanFloor(vectors, new Direction[] {Direction.Horizontal, Direction.Vertical, Direction.Diagonal});
+            //floor.Draw();
+            return floor.GetDangerousPointCount();
         }
     }
 }
