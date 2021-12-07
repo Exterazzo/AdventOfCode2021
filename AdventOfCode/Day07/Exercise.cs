@@ -44,7 +44,36 @@ namespace AdventOfCode.Day07
 
         public long GetSecondAnswer()
         {
-            return 0;
+            var currentPositions = _input[0].Split(',').Select(i => Convert.ToInt32(i)).ToList();
+            var minPosition = currentPositions.Min();
+            var maxPosition = currentPositions.Max();
+            var steps = new Dictionary<int, int>();
+            for (var i = minPosition; i <= maxPosition; i++)
+            {
+                steps.Add(i, GetNewFuelCount(currentPositions, i));
+            }
+            return steps.Select(s => s.Value).Min();
+        }
+
+        private int GetNewFuelCount(List<int> currentPositions, int i)
+        {
+            var fuel = 0;
+            foreach (var p in currentPositions)
+            {
+                var diff = Math.Abs(p - i);
+                fuel += SumToF(diff);
+            }
+            return fuel;
+        }
+
+        private int SumToF(int f)
+        {
+            var burnedFuel = 0;
+            for(var i = f; i > 0; i--)
+            {
+                burnedFuel += i;
+            }
+            return burnedFuel;
         }
     }
 }
