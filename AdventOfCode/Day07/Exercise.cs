@@ -1,4 +1,7 @@
 ﻿using AdventOfCode.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode.Day07
 {
@@ -18,7 +21,25 @@ namespace AdventOfCode.Day07
 
         public int GetFirstAnswer()
         {
-            return 0;
+            var currentPositions = _input[0].Split(',').Select(i => Convert.ToInt32(i)).ToList();
+            var minPosition = currentPositions.Min();
+            var maxPosition = currentPositions.Max();
+            var steps = new Dictionary<int, int>();
+            for(var i = minPosition; i <= maxPosition; i++)
+            {
+                steps.Add(i, GetFuelCount(currentPositions, i));
+            }
+            return steps.Select(s => s.Value).Min();
+        }
+
+        private int GetFuelCount(List<int> currentPositions, int i)
+        {
+            var fuel = 0;
+            foreach(var p in currentPositions)
+            {
+                fuel += Math.Abs(p - i);
+            }
+            return fuel;
         }
 
         public long GetSecondAnswer()
