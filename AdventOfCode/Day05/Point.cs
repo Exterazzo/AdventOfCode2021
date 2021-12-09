@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AdventOfCode.Day05
 {
+    [DebuggerDisplay("X = {X}, Y = {Y}")]
     public struct Point
     {
         public int X { get; set; }
