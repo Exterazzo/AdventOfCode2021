@@ -28,12 +28,7 @@ namespace AdventOfCode.Day09
 
         public List<LowPoint> GetLowPointsInRow()
         {
-            var l = new List<LowPoint>();
-            foreach(var p in this)
-            {
-                
-            }
-            return l;
+            return this.Where(p => p.IsLowerHorizontally).ToList();
         }
     }
 }

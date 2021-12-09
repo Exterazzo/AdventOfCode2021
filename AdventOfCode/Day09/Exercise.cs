@@ -22,7 +22,9 @@ namespace AdventOfCode.Day09
         public int GetFirstAnswer()
         {
             var map = new Map(_input);
-            return 0;
+            var lowPoints = map.GetLowPoints();
+            var sum = lowPoints.Select(p => p.Value + 1).Sum();
+            return sum;
         }
 
 
