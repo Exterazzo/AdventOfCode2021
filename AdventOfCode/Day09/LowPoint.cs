@@ -1,9 +1,13 @@
-﻿namespace AdventOfCode.Day09
+﻿using System.Diagnostics;
+
+namespace AdventOfCode.Day09
 {
+    [DebuggerDisplay("X = {X}, Y = {Y}, Value = {Value}")]
     struct LowPoint
     {
         public int Value;
-        public int Index;
+        public int X;
+        public int Y;
         public int? Previous;
         public int? Next;
 

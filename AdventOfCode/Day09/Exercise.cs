@@ -30,7 +30,20 @@ namespace AdventOfCode.Day09
 
         public int GetSecondAnswer()
         {
-            return 0;
+            var map = new Map(_input);
+            var lowPoints = map.GetLowPoints();
+
+            var bassins = new Dictionary<Bassin, int>();
+            foreach (var p in lowPoints)
+            {
+                var bassin = map.GetBassinForPoint(p, new Bassin());
+                var size = bassin.GetSize();
+                bassins.Add(bassin, size);
+            }
+
+            var topBassins = bassins.Select(b => b.Value).OrderByDescending(b => b).Take(3).ToList();
+
+            return topBassins[0] * topBassins[1] * topBassins[2];
         }
     }
 }

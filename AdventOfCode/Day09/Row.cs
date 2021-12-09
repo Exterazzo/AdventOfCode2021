@@ -8,7 +8,7 @@ namespace AdventOfCode.Day09
 {
     class Row : List<LowPoint>
     {
-        public Row(string row)
+        public Row(string row, int y)
         {
             
             for(var i = 0; i < row.Length; i++)
@@ -21,7 +21,7 @@ namespace AdventOfCode.Day09
 
                 if (i < row.Length - 1)
                     next = Convert.ToInt32(row[i+1].ToString());
-                var point = new LowPoint() { Index = i, Value = n, Previous = p, Next = next };
+                var point = new LowPoint() { X = i, Y = y, Value = n, Previous = p, Next = next };
                 Add(point);
             }
         }
