@@ -18,7 +18,7 @@ namespace Tests.Tests
             var firstAnswer = exercise.GetFirstAnswer();
 
             // Assert
-            firstAnswer.Should().Be(0);
+            firstAnswer.Should().Be(26397);
         }
 
         [Fact]
@@ -37,7 +37,16 @@ namespace Tests.Tests
 
         private string[] GetSampleInput()
         {
-            var input = @"";
+            var input = @"[({(<(())[]>[[{[]{<()<>>
+[(()[<>])]({[<{<<[]>>(
+{([(<{}[<>[]}>{[]{[(<()>
+(((({<>}<{<{<>}{[]{[]{}
+[[<[([]))<([[{}[[()]]]
+[{[{({}]{}}([{[{{{}}([]
+{<[[]]>}<{[{[{[]{()[[[]
+[<(<(<(<{}))><([]([]()
+<{([([[(<>()){}]>(<<{{
+<{([{{}}[<[[[<>{}]]]>[]]";
             return input.Split(
                 new string[] { Environment.NewLine },
                 StringSplitOptions.None

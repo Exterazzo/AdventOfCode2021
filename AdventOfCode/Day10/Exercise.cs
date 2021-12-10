@@ -1,4 +1,6 @@
-﻿using AdventOfCode.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AdventOfCode.Interfaces;
 
 namespace AdventOfCode.Day10
 {
@@ -18,7 +20,26 @@ namespace AdventOfCode.Day10
 
         public int GetFirstAnswer()
         {
-            return 0;
+            var list = new List<SyntaxLine>();
+            foreach(var l in _input)
+                list.Add(new SyntaxLine(l));
+
+            var corrupted = list.Where(l => l.IsCorrupted).Select(l => l.CorruptedCharacter).ToList();
+
+            var sum = 0;
+            foreach (var c in corrupted)
+            {
+                if (c == ')')
+                    sum += 3;
+                if (c == ']')
+                    sum += 57;
+                if (c == '}')
+                    sum += 1197;
+                if (c == '>')
+                    sum += 25137;
+            }
+
+            return sum;
         }
 
 
