@@ -9,14 +9,14 @@ namespace AdventOfCode.Day10
         private string _line;
         private List<Chunk> _characters = new List<Chunk>();
         private Stack<char> _stack;
-        
+
         public bool IsCorrupted;
         public char CorruptedCharacter;
 
         public SyntaxLine(string input)
         {
             _line = input;
-            _characters.Add(new Chunk() { Start = '{', End = '}'});
+            _characters.Add(new Chunk() { Start = '{', End = '}' });
             _characters.Add(new Chunk() { Start = '[', End = ']' });
             _characters.Add(new Chunk() { Start = '<', End = '>' });
             _characters.Add(new Chunk() { Start = '(', End = ')' });
@@ -34,8 +34,7 @@ namespace AdventOfCode.Day10
                 }
                 else if (endCharacters.Contains(c))
                 {
-                    _stack.TryPop(out var expected);
-                    if (expected != c)
+                    if (_stack.TryPop(out var expected) && expected != c)
                     {
                         IsCorrupted = true;
                         CorruptedCharacter = c;
@@ -45,6 +44,17 @@ namespace AdventOfCode.Day10
             }
         }
 
-        
+        public long GetScore()
+        {
+            var scores = new Dictionary<char, int>()
+            {
+                {  ')', 1 },
+                {  ']', 2 },
+                {  '}', 3 },
+                {  '>', 4 },
+            };
+
+            return _stack.Aggregate(0L, (sum, s) => (sum * 5) + scores[s]);
+        }
     }
 }

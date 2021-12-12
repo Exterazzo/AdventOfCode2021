@@ -4,7 +4,7 @@ using AdventOfCode.Interfaces;
 
 namespace AdventOfCode.Day10
 {
-    public class Exercise : IExercise<int, int>
+    public class Exercise : IExercise<int, long>
     {
         private string[] _input;
 
@@ -43,9 +43,22 @@ namespace AdventOfCode.Day10
         }
 
 
-        public int GetSecondAnswer()
+        public long GetSecondAnswer()
         {
-            return 0;
+            var list = new List<SyntaxLine>();
+            foreach (var l in _input)
+                list.Add(new SyntaxLine(l));
+
+            var incomplete = list.Where(l => !l.IsCorrupted).ToList();
+            var scores = new List<long>();
+            foreach(var l in incomplete)
+            {
+                scores.Add(l.GetScore());
+            }
+
+            scores = scores.OrderBy(s => s).ToList();
+
+            return scores[scores.Count / 2];
         }
     }
 }
